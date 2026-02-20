@@ -76,7 +76,8 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid Padding="24,16" RowSpacing="24">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" ZoomMode="Disabled">
+        <Grid Padding="24,16" RowSpacing="24" MinHeight="300">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -186,4 +187,5 @@
             </StackPanel>
         </Border>
     </Grid>
+    </ScrollViewer>
 </Page>
