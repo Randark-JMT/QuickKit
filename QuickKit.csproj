@@ -7,11 +7,13 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
-    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <WinUISDKReferences>false</WinUISDKReferences>
-    <EnableMsixTooling>true</EnableMsixTooling>
+    <!-- 设为 false 则不以 MSIX/Store 方式分发，可发布为传统 exe；需要 Store 时改回 true -->
+    <EnableMsixTooling>false</EnableMsixTooling>
     <Nullable>enable</Nullable>
+    <!-- 使用 x64 发布配置时强制 Platform=x64，避免被解决方案的 ARM64 覆盖 -->
+    <Platform Condition="'$(PublishProfile)' == 'win-x64-unpacked' or '$(PublishProfile)' == 'win-x64-singlefile'">x64</Platform>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,6 +52,12 @@
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
 
+  <!--
+    传统 exe 发布（无需 MSIX/Store）：
+    dotnet publish -c Release -p:PublishProfile=win-x64-unpacked
+    输出在 bin\Release\net8.0-windows10.0.19041.0\win-x64\publish\，直接复制该文件夹即可分发。
+    若需尝试单文件 exe：-p:PublishProfile=win-x64-singlefile（WinUI 3 下可能有兼容问题）。
+  -->
   <!-- Publish Properties -->
   <PropertyGroup>
     <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
