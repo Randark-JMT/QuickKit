@@ -7,13 +7,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="QuickKit">
+    Title="QuickKit - 小工具箱">
 
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
     <Grid>
+        <NavigationView
+            x:Name="MainNav"
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleButtonVisible="True"
+            PaneDisplayMode="Left"
+            OpenPaneLength="220"
+            CompactModeThresholdWidth="640"
+            ExpandedModeThresholdWidth="1024"
+            IsSettingsVisible="False"
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+            ItemInvoked="MainNav_ItemInvoked">
 
+            <NavigationView.MenuItems>
+                <NavigationViewItem
+                    x:Name="NavItemJava"
+                    Content="Java 版本控制"
+                    Tag="JavaVersion">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Globe" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <Frame x:Name="ContentFrame" />
+        </NavigationView>
     </Grid>
 </Window>
