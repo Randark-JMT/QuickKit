@@ -13,6 +13,8 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        ExtendsContentIntoTitleBar = true;
+        SetTitleBar(TitleBarArea);
         ContentFrame.Navigate(typeof(HomePage));
         MainNav.SelectedItem = NavItemHome;
         Activated += OnActivated;

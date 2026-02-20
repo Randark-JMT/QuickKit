@@ -14,7 +14,26 @@
     </Window.SystemBackdrop>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- WinUI 一体标题栏：作为拖动区域，右侧为系统按钮留空 -->
+        <Grid
+            x:Name="TitleBarArea"
+            Grid.Row="0"
+            Height="48"
+            Padding="48,0,120,0"
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+            VerticalAlignment="Top">
+            <TextBlock
+                Text="QuickKit - 小工具箱"
+                FontSize="14"
+                FontWeight="SemiBold"
+                VerticalAlignment="Center"/>
+        </Grid>
         <NavigationView
+            Grid.Row="1"
             x:Name="MainNav"
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="True"
