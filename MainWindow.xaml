@@ -28,8 +28,16 @@
 
             <NavigationView.MenuItems>
                 <NavigationViewItem
+                    x:Name="NavItemHome"
+                    Content="首页"
+                    Tag="Home">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Home" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem
                     x:Name="NavItemJava"
-                    Content="Java 版本控制"
+                    Content="Java 环境管理"
                     Tag="JavaVersion">
                     <NavigationViewItem.Icon>
                         <SymbolIcon Symbol="Globe" />

@@ -41,6 +41,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260209005" />
+    <PackageReference Include="System.Management" Version="10.0.3" />
   </ItemGroup>
 
   <!--
@@ -58,11 +59,11 @@
     输出在 bin\Release\net8.0-windows10.0.19041.0\win-x64\publish\，直接复制该文件夹即可分发。
     若需尝试单文件 exe：-p:PublishProfile=win-x64-singlefile（WinUI 3 下可能有兼容问题）。
   -->
-  <!-- Publish Properties -->
+  <!-- Publish Properties：WinUI 3 发布时不宜启用 Trimmed，否则 XamlCompiler/反射易失败 -->
   <PropertyGroup>
     <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
-    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">False</PublishTrimmed>
   </PropertyGroup>
 </Project>

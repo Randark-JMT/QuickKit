@@ -13,8 +13,8 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        ContentFrame.Navigate(typeof(JavaVersionPage));
-        MainNav.SelectedItem = NavItemJava;
+        ContentFrame.Navigate(typeof(HomePage));
+        MainNav.SelectedItem = NavItemHome;
         Activated += OnActivated;
     }
 
@@ -32,7 +32,7 @@ public sealed partial class MainWindow : Window
             var hwnd = WindowNative.GetWindowHandle(this);
             var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hwnd);
             var appWindow = AppWindow.GetFromWindowId(windowId);
-            appWindow.Resize(new Windows.Graphics.SizeInt32(1000, 700));
+            appWindow.Resize(new Windows.Graphics.SizeInt32(960, 720));
             appWindow.MoveInZOrderAtTop();
         }
         catch { /* 忽略无法设置时的错误 */ }
@@ -45,6 +45,7 @@ public sealed partial class MainWindow : Window
 
         Type? pageType = tag switch
         {
+            "Home" => typeof(HomePage),
             "JavaVersion" => typeof(JavaVersionPage),
             _ => null
         };

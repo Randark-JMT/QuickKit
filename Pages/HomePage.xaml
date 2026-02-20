@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="QuickKit.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:QuickKit.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="CpuItemTemplate">
+            <Border
+                Padding="16,12"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                CornerRadius="8"
+                Margin="0,0,0,4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MinWidth="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Name}" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Cores}" FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding MaxSpeedMhz}" FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="GpuItemTemplate">
+            <Border
+                Padding="16,12"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                CornerRadius="8"
+                Margin="0,0,0,4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MinWidth="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Name}" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="1" Text="{Binding DriverVersion}" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding AdapterRamGb}" FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="DiskItemTemplate">
+            <Border
+                Padding="16,12"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                CornerRadius="8"
+                Margin="0,0,0,4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" MinWidth="120"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding DriveLetter}" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="{Binding VolumeLabel}" FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" Margin="12,0,0,0" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock Grid.Column="2" Text="{Binding TotalGb}" FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    <TextBlock Grid.Column="3" Text="{Binding FreeGb}" FontSize="13" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                    <TextBlock Grid.Column="4" Text="{Binding FileSystem}" FontSize="12" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Padding="24,16" RowSpacing="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <StackPanel Grid.Row="0" Spacing="4">
+            <TextBlock Text="首页" FontSize="28" FontWeight="Bold"/>
+            <TextBlock
+                Text="本机基础设备信息概览"
+                FontSize="14"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+
+        <!-- CPU -->
+        <Border
+            Grid.Row="1"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="12"
+            Padding="20">
+            <StackPanel Spacing="12">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <SymbolIcon Symbol="ShowResults" VerticalAlignment="Center"/>
+                    <TextBlock Text="处理器" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <ListView
+                    x:Name="CpuList"
+                    ItemTemplate="{StaticResource CpuItemTemplate}"
+                    SelectionMode="None"
+                    IsItemClickEnabled="False"
+                    HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 内存 -->
+        <Border
+            Grid.Row="2"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="12"
+            Padding="20">
+            <StackPanel Spacing="12">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <SymbolIcon Symbol="ViewAll" VerticalAlignment="Center"/>
+                    <TextBlock Text="内存" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel x:Name="MemoryPanel" Orientation="Horizontal" Spacing="24">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="总容量" FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock x:Name="MemoryTotalText" FontSize="16" FontWeight="SemiBold"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="可用" FontSize="13" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock x:Name="MemoryAvailableText" FontSize="16" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- 显卡 -->
+        <Border
+            Grid.Row="3"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="12"
+            Padding="20">
+            <StackPanel Spacing="12">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <SymbolIcon Symbol="Video" VerticalAlignment="Center"/>
+                    <TextBlock Text="显卡" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <ListView
+                    x:Name="GpuList"
+                    ItemTemplate="{StaticResource GpuItemTemplate}"
+                    SelectionMode="None"
+                    IsItemClickEnabled="False"
+                    HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 磁盘 -->
+        <Border
+            Grid.Row="4"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="12"
+            Padding="20">
+            <StackPanel Spacing="12">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <SymbolIcon Symbol="Save" VerticalAlignment="Center"/>
+                    <TextBlock Text="磁盘" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <ListView
+                    x:Name="DiskList"
+                    ItemTemplate="{StaticResource DiskItemTemplate}"
+                    SelectionMode="None"
+                    IsItemClickEnabled="False"
+                    HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
